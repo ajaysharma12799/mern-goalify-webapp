@@ -15,11 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  // Test API endpoint
-  res.send("API Working Fine");
+  res.send("API Working Fine"); // Test API endpoint
 });
 
 app.use("/api/goals", require("./routes/goals.routes"));
+app.use("/api/users", require("./routes/user.routes"));
 app.use(errorHandler); // Custom Error Middleware Handler
 
 app.listen(Port, (error) => {
