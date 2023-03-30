@@ -50,17 +50,14 @@ const updateGoals = asyncHandler(async (req, res) => {
     throw new Error("Goal Not Found");
   }
 
-  // Get User From DB
-  const user = await UserModel.findById(req.user.id);
-
   // Check If User Exist
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User Not Found");
   }
 
   // Make Sure the LoggedIn User Matched Goal User
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User Not Authorised");
   }
@@ -90,16 +87,14 @@ const deleteGoals = asyncHandler(async (req, res) => {
     throw new Error("Goal Not Found");
   }
 
-  const user = await UserModel.findById(req.user.id);
-
   // Check If User Exist
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error("User Not Found");
   }
 
   // Make Sure the LoggedIn User Matched Goal User
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User Not Authorised");
   }

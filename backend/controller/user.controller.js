@@ -93,13 +93,7 @@ const loginUser = asyncHandler(async (req, res) => {
  *
  */
 const getCurrentUserProfile = asyncHandler(async (req, res) => {
-  const { _id, username, email } = await UserModel.findById(req.user.id);
-
-  res.status(200).json({
-    id: _id,
-    username,
-    email,
-  });
+  res.status(200).json(req.user);
 });
 
 // Function to Generate JWT Token
