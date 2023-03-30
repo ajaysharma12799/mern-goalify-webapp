@@ -2,17 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import AddGoalModal from '../components/modal/AddGoalModal';
-import { AiOutlinePlus, AiFillEdit } from 'react-icons/ai'
+import { AiOutlinePlus } from 'react-icons/ai'
 
 import GoalCard from '../components/card/GoalCard';
+import EditGoalModal from '../components/modal/EditGoalModal';
 
 const Dashboard = () => {
     const [isAddGoalModalOpen, setIsAddGoalModalOpen] = useState(false);
+    const [isEditGoalModalOpen, setIsEditGoalModalOpen] = useState(false);
+
     const navigate = useNavigate();
     const { user } = useSelector(state => state.auth);
 
     const toggleAddGoalModal = () => {
         setIsAddGoalModalOpen(!isAddGoalModalOpen);
+    }
+
+    const toggleEditGoalModal = () => {
+        setIsEditGoalModalOpen(!isEditGoalModalOpen);
     }
 
     useEffect(() => {
@@ -41,7 +48,7 @@ const Dashboard = () => {
                         {
                             [1, 2, 3, 4, 5, 6, 7].map((_, idx) => {
                                 return (
-                                    <GoalCard key={idx} />
+                                    <GoalCard key={idx} toggleEditGoalModal={toggleEditGoalModal} />
                                 );
                             })
                         }
@@ -51,6 +58,10 @@ const Dashboard = () => {
             <AddGoalModal
                 toggleAddGoalModal={toggleAddGoalModal}
                 isAddGoalModalOpen={isAddGoalModalOpen}
+            />
+            <EditGoalModal
+                isEditGoalModalOpen={isEditGoalModalOpen}
+                toggleEditGoalModal={toggleEditGoalModal}
             />
         </React.Fragment>
     )
