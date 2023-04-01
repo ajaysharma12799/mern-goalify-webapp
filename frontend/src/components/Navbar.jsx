@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { asyncLogoutUser, reset } from '../redux/features/authSlice';
+import { asyncLogoutUser, reset } from '../redux/features/auth/authSlice';
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Navbar = () => {
 
     return (
         <nav className='bg-blue-500 text-white'>
-            <div className='container mx-auto w-[90%] p-3 flex items-center justify-between'>
+            <div className='container mx-auto w-[90%] py-3 flex items-center justify-between'>
                 <h1 className='text-lg md:text-2xl'>Goalify</h1>
                 {
                     user && (
