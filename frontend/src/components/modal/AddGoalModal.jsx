@@ -2,18 +2,29 @@ import React from 'react'
 import ReactModal from 'react-modal';
 import { RxCross1 } from 'react-icons/rx';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { asyncCreateGoal, reset } from '../../redux/features/goals/goalSlice';
 
 ReactModal.setAppElement('#react-modal-portal');
 
 const AddGoalModal = ({ isAddGoalModalOpen, toggleAddGoalModal }) => {
+    const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: {
             text: ''
         },
         onSubmit: (values) => {
             console.log(values);
+            handleSubmit(values);
         }
     })
+
+    const handleSubmit = (values) => {
+        dispatch(asyncCreateGoal(values));
+        dispatch(reset());
+        formik.resetForm();
+        toggleAddGoalModal();
+    }
 
     const handleDiscard = () => {
         const confirmationResult = window.confirm('Are You Sure??');
@@ -25,6 +36,7 @@ const AddGoalModal = ({ isAddGoalModalOpen, toggleAddGoalModal }) => {
             return false;
         }
     }
+
     return (
         <React.Fragment>
             <ReactModal

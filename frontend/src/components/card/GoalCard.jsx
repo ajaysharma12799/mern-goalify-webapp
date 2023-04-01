@@ -1,14 +1,22 @@
 import React from 'react'
 import { ImBin } from 'react-icons/im';
 import { AiFillEdit } from 'react-icons/ai'
+import { useDispatch } from 'react-redux';
+import { asyncDeleteGoal } from '../../redux/features/goals/goalSlice';
 
-const GoalCard = ({ toggleEditGoalModal }) => {
+const GoalCard = ({ goal, toggleEditGoalModal }) => {
+    const dispatch = useDispatch();
+    const handleDelete = () => {
+        dispatch(asyncDeleteGoal(goal?._id));
+    }
     return (
         <div className='border rounded-md px-2 py-3 shadow-md'>
             <h1 className='text-lg md:text-xl font-bold'>
-                Learn React
+                {goal?.text}
             </h1>
-            <p className='text-sm text-gray-500 my-2'>Date: 12/07/1999</p>
+            <p className='text-sm text-gray-500 my-2'>
+                Date: {goal?.createdAt}
+            </p>
             <div className='flex items-center justify-between'>
                 <p>Priority</p>
                 <span className='bg-red-500 text-white py-1 px-3'>High</span>
@@ -17,7 +25,7 @@ const GoalCard = ({ toggleEditGoalModal }) => {
                 <button onClick={toggleEditGoalModal} className='text-white bg-green-500 p-3 rounded-full'>
                     <AiFillEdit />
                 </button>
-                <button className='text-white bg-red-500 p-3 rounded-full'>
+                <button onClick={handleDelete} className='text-white bg-red-500 p-3 rounded-full'>
                     <ImBin />
                 </button>
             </div>
