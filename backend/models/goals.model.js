@@ -10,6 +10,10 @@ const goalSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please add a text value"],
     },
+    priority: {
+      type: String,
+      required: [true, "Please add Priority"],
+    },
   },
   {
     timestamps: true,

@@ -1,6 +1,5 @@
 const asyncHandler = require("express-async-handler");
 const GoalModel = require("../models/goals.model");
-const UserModel = require("../models/user.model");
 
 /**
  *
@@ -24,13 +23,14 @@ const getGoals = asyncHandler(async (req, res) => {
  *
  */
 const addGoals = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
+  if (!req.body.text || !req.body.priority) {
     res.status(400);
-    throw new Error("Please add a text");
+    throw new Error("Please add all Fields");
   }
   const goal = await GoalModel.create({
     text: req.body.text,
     user: req.user.id,
+    priority: req.body.priority,
   });
   res.status(200).json(goal);
 });
