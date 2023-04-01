@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { asyncRegisterUser, reset } from '../../redux/features/authSlice';
+import { asyncRegisterUser, reset } from '../../redux/features/auth/authSlice';
 import { toast } from 'react-toastify'
 
 const Signup = () => {

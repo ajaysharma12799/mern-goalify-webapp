@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { asyncLoginUser } from '../../redux/features/authSlice';
+import { asyncLoginUser } from '../../redux/features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
