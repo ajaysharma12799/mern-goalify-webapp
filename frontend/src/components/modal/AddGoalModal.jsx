@@ -11,7 +11,8 @@ const AddGoalModal = ({ isAddGoalModalOpen, toggleAddGoalModal }) => {
     const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: {
-            text: ''
+            text: '',
+            priority: 'low',
         },
         onSubmit: (values) => {
             console.log(values);
@@ -69,6 +70,8 @@ const AddGoalModal = ({ isAddGoalModalOpen, toggleAddGoalModal }) => {
                         <select
                             name="priority"
                             id="goal-priority"
+                            value={formik.values.priority}
+                            onChange={formik.handleChange}
                             className='border rounded-md py-3 px-2 w-full my-2'
                         >
                             <option value="low">Low</option>
