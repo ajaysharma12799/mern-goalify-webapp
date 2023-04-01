@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import AddGoalModal from '../components/modal/AddGoalModal';
 import { AiOutlinePlus } from 'react-icons/ai'
 
 import GoalCard from '../components/card/GoalCard';
 import EditGoalModal from '../components/modal/EditGoalModal';
+import { asyncGetGoals } from '../redux/features/goals/goalSlice';
 
 const Dashboard = () => {
+    const dispatch = useDispatch();
+    const { goals, isLoading } = useSelector(state => state.goal);
     const [isAddGoalModalOpen, setIsAddGoalModalOpen] = useState(false);
     const [isEditGoalModalOpen, setIsEditGoalModalOpen] = useState(false);
 
@@ -26,6 +29,8 @@ const Dashboard = () => {
         if (!user) {
             navigate('/');
         }
+
+        dispatch(asyncGetGoals());
     }, [navigate, user])
 
     return (
@@ -41,16 +46,29 @@ const Dashboard = () => {
                         Add Goal
                     </button>
                 </div>
+                <hr className='my-2' />
                 <div className='goals-container'>
                     <h1 className='text-lg md:text-3xl'>All Goals</h1>
                     <div className='grid grid-cols-1 md:grid-cols-3 gap-2 my-3'>
 
                         {
-                            [1, 2, 3, 4, 5, 6, 7].map((_, idx) => {
-                                return (
-                                    <GoalCard key={idx} toggleEditGoalModal={toggleEditGoalModal} />
-                                );
-                            })
+                            isLoading ? (
+                                <h1 className='text-lg md:text-xl text-center'>Loading...</h1>
+                            ) : (
+                                goals.length === 0 ? (
+                                    <h1>No Goals Yet</h1>
+                                ) : (
+                                    goals?.map((goal, idx) => {
+                                        return (
+                                            <GoalCard
+                                                goal={goal}
+                                                key={idx}
+                                                toggleEditGoalModal={toggleEditGoalModal}
+                                            />
+                                        );
+                                    })
+                                    )
+                                )
                         }
                     </div>
                 </div>
